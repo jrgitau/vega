@@ -1,6 +1,7 @@
 using vega.Models;
 using vega.DTOs;
 using AutoMapper;
+using vega.Controllers.Resources;
 
 namespace vega.Mappings
 {
@@ -8,11 +9,16 @@ namespace vega.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<CarModel, CarModelDto>().ReverseMap();
+            CreateMap<CarModel, CarModelResource>().ReverseMap();
 
-            CreateMap<Make, MakeDto>().ReverseMap();
+            CreateMap<Make, MakeResource>().ReverseMap();
 
-            CreateMap<Feature, FeatureDto>().ReverseMap();
+            CreateMap<Feature, FeatureResource>().ReverseMap();
+         
+
+           // CreateMap<Feature, FeatureDto>().ReverseMap();
+
+
         } 
     }
     

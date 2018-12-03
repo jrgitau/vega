@@ -1,11 +1,11 @@
-namespace vega.DTOs
+namespace vega.Controllers.Resources
 {
-    public class CarModelDto
+    public class CarModelResource
     {
         public int Id { get; set; }
-
+       
         public string Name { get; set; }
 
-        
+       
     }
 }
