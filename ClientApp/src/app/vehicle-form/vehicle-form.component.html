@@ -1,0 +1,73 @@
+<h1>Add Vehicle</h1>
+
+<form #f="ngForm">
+  <div class="form-group">
+    <label for="contactName">Contact Name</label>
+    <input required ngModel name="contactName" #contactName="ngModel" type="text" id="contactName" class="form-control">
+    <div class="alert alert-danger" *ngIf="contactName.touched && !contactName.valid">Contact Name is required</div>
+  </div>
+  <div class="form-group">
+    <label for="contactPhone">Contact Phone</label>
+    <input type="text" ngModel name="contactPhone" #contactPhone="ngModel" id="contactPhone" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="contactEmail">Contact Email</label>
+    <input email ngModel name="contactEmail" #contactEmail="ngModel" type="text" id="contactEmail" class="form-control">
+    <div class="alert alert-danger" *ngIf="contactEmail.touched && !contactEmail.valid">Please Enter a valid Email
+      Address</div>
+  </div>
+  <div class="checkbox"><label>
+      <input type="checkbox" ngModel>
+    </label>
+  </div>
+  <div class="form-group">
+    <label for="Make">Vehicle Make</label>
+    <select required ngModel name="Make" #Make = "ngModel" (change)="onChange($event.target.value)" id="Make" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let make of makes" [value]="make.id">{{ make.name }}</option>
+    </select>
+    <div class="alert alert-danger" *ngIf="Make.touched && !Make.valid">Vehicle Make is required</div>
+
+  </div>
+  <div class="form-group">
+      <label for="CarModel">Vehicle Model</label>
+      <select required ngModel name="CarModel" #CarModel = "ngModel" id="CarModel" class="form-control">
+        <option value=""></option>
+        <option *ngFor="let model of models" [value]="model.id">{{ model.name }}</option>
+      </select>
+      <div class="alert alert-danger" *ngIf="CarModel.touched && !CarModel.valid">Vehicle Model is required</div>
+
+    </div>
+
+    <div class="form-group">
+      <label for="features"></label>
+      <div *ngFor="let feature of features">
+        <label>
+          <input type="checkbox" 
+          name="feature" 
+          [value]="feature.id" 
+          [(ngModel)]="feature.checked"/>
+          {{feature.name}}
+        </label>
+      </div>
+    </div>
+    <div class="radio">
+      <label>
+        <input ngModel type="radio" name="IsRegistered" value="1">
+        Vehicle Is Registered
+      </label>
+    </div>
+
+    <div class="radio">
+        <label>
+          <input ngModel type="radio" name="IsRegistered" value="2">
+          Vehicle Not Registered
+        </label>
+      </div>  
+
+
+  <p>
+    {{ f.value | json }}
+  </p>
+  <button class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+</form>

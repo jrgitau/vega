@@ -35,6 +35,18 @@ namespace vega.Controllers
           return _mapper.Map<List<Make>, List<MakeResource>>(makes);
         }
 
+         [HttpGet("/api/makes/carmodels/{id}")]
+        public async Task<IEnumerable<CarModelResource>> GetCarModels(int id){
+            
+           var carModels = await _context.CarModels.Where(c => c.MakeId == id).ToListAsync();
+         
+
+          return _mapper.Map<List<CarModel>, List<CarModelResource>>(carModels);
+        }
+
+        
+
+
         
     }
 }
