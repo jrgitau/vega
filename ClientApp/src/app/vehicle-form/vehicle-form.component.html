@@ -1,32 +1,15 @@
 <h1>Add Vehicle</h1>
 
 <form #f="ngForm">
-  <div class="form-group">
-    <label for="contactName">Contact Name</label>
-    <input required ngModel name="contactName" #contactName="ngModel" type="text" id="contactName" class="form-control">
-    <div class="alert alert-danger" *ngIf="contactName.touched && !contactName.valid">Contact Name is required</div>
-  </div>
-  <div class="form-group">
-    <label for="contactPhone">Contact Phone</label>
-    <input type="text" ngModel name="contactPhone" #contactPhone="ngModel" id="contactPhone" class="form-control">
-  </div>
-  <div class="form-group">
-    <label for="contactEmail">Contact Email</label>
-    <input email ngModel name="contactEmail" #contactEmail="ngModel" type="text" id="contactEmail" class="form-control">
-    <div class="alert alert-danger" *ngIf="contactEmail.touched && !contactEmail.valid">Please Enter a valid Email
-      Address</div>
-  </div>
-  <div class="checkbox"><label>
-      <input type="checkbox" ngModel>
-    </label>
-  </div>
+  
+ 
+
   <div class="form-group">
     <label for="Make">Vehicle Make</label>
-    <select required ngModel name="Make" #Make = "ngModel" (change)="onChange($event.target.value)" id="Make" class="form-control">
+    <select required  [(ngModel)]="vehicle.make" (change)="OnMakeChange()" [ngModelOptions]="{standalone: true}"  id="Make" class="form-control">
       <option value=""></option>
       <option *ngFor="let make of makes" [value]="make.id">{{ make.name }}</option>
     </select>
-    <div class="alert alert-danger" *ngIf="Make.touched && !Make.valid">Vehicle Make is required</div>
 
   </div>
   <div class="form-group">
@@ -35,35 +18,42 @@
         <option value=""></option>
         <option *ngFor="let model of models" [value]="model.id">{{ model.name }}</option>
       </select>
-      <div class="alert alert-danger" *ngIf="CarModel.touched && !CarModel.valid">Vehicle Model is required</div>
 
     </div>
 
-    <div class="form-group">
-      <label for="features"></label>
-      <div *ngFor="let feature of features">
-        <label>
-          <input type="checkbox" 
-          name="feature" 
-          [value]="feature.id" 
-          [(ngModel)]="feature.checked"/>
-          {{feature.name}}
-        </label>
-      </div>
-    </div>
-    <div class="radio">
-      <label>
-        <input ngModel type="radio" name="IsRegistered" value="1">
-        Vehicle Is Registered
+    <h2>Features</h2>
+    <div *ngFor="let f of features" class="checkbox">
+      <label for="feature{{ f.id }}">
+      <input type="checkbox" id="feature{{f.id}}"> {{ f.name }}
+    </label>
+  </div>
+
+  <p>Is this Vehicle Registered</p>
+  <div class="radio">
+    <label for="registered">
+      <input type="radio" name="isRegistered" id="registered" value="true"> Yes
+    </label>
+  </div>
+  <div class="radio">
+      <label for="notRegistered">
+        <input type="radio" name="isRegistered" id="notRegistered" value="false"> No
       </label>
     </div>
+    <h2>Contacts</h2>
+    <div class="form-group">
+        <label for="contactName">Name</label><input id="contactName" type="text" class="form-control">
+      </div>
+      <div class="form-group">
+          <label for="contactPhone">Phone</label><input id="contactPhone" type="text" class="form-control">
+      </div>
+      <div class="form-group">
+          <label for="contactEmail">Email</label><input id="contactEmail" type="text" class="form-control">
+      </div>
 
-    <div class="radio">
-        <label>
-          <input ngModel type="radio" name="IsRegistered" value="2">
-          Vehicle Not Registered
-        </label>
-      </div>  
+   
+
+    
+ 
 
 
   <p>

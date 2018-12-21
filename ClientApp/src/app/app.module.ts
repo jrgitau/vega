@@ -1,5 +1,4 @@
-import { FeaturesService } from './services/features.service';
-import { MakesService } from './services/makes.service';
+import { VehicleService } from './services/vehicle.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -42,8 +41,7 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
     ])
   ],
   providers: [
-    MakesService,
-    FeaturesService
+    VehicleService
   ],
   bootstrap: [AppComponent]
 })

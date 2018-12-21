@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vega.Models;
 
 namespace vega.Migrations
 {
     [DbContext(typeof(VegaDbContext))]
-    partial class VegaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181219070048_AddedLastUpdateProperty")]
+    partial class AddedLastUpdateProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,19 +93,6 @@ namespace vega.Migrations
                     b.ToTable("Vehicle");
                 });
 
-            modelBuilder.Entity("vega.Models.VehicleFeature", b =>
-                {
-                    b.Property<int>("VehicleId");
-
-                    b.Property<int>("FeatureId");
-
-                    b.HasKey("VehicleId", "FeatureId");
-
-                    b.HasIndex("FeatureId");
-
-                    b.ToTable("VehicleFeatures");
-                });
-
             modelBuilder.Entity("vega.Models.CarModel", b =>
                 {
                     b.HasOne("vega.Models.Make", "Make")
@@ -117,19 +106,6 @@ namespace vega.Migrations
                     b.HasOne("vega.Models.CarModel", "CarModel")
                         .WithMany()
                         .HasForeignKey("CarModelId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("vega.Models.VehicleFeature", b =>
-                {
-                    b.HasOne("vega.Models.Feature", "Feature")
-                        .WithMany("VehicleFeatures")
-                        .HasForeignKey("FeatureId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("vega.Models.Vehicle", "Vehicle")
-                        .WithMany("VehicleFeatures")
-                        .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

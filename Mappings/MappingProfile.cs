@@ -15,6 +15,11 @@ namespace vega.Mappings
 
             CreateMap<Feature, FeatureResource>().ReverseMap();
          
+            CreateMap<Vehicle, VehicleResource>()
+            .ForMember(
+                dest => dest.CarModelResource,
+                opt => opt.MapFrom(src => src.CarModel))
+            .ReverseMap();
 
            // CreateMap<Feature, FeatureDto>().ReverseMap();
 

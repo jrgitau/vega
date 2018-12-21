@@ -1,5 +1,4 @@
-import { FeaturesService } from './../services/features.service';
-import { MakesService } from './../services/makes.service';
+import { VehicleService } from '../services/vehicle.service';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { NotFoundError } from '../common/not-found-error';
@@ -12,38 +11,36 @@ import { NotFoundError } from '../common/not-found-error';
 export class VehicleFormComponent implements OnInit {
 
   makes: any[];
+  vehicle: any = {};
   models: any[];
   features: any[];
 
-  constructor(private makesService: MakesService,
+  constructor(private vehicleService: VehicleService,
     public toastr: ToastsManager, vcr: ViewContainerRef,
-    private featuresService: FeaturesService
   ) {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
 
   ngOnInit() {
-    this.makesService.getMakes()
+    this.vehicleService.getMakes()
       .subscribe(
         response => {
         this.makes = response.json();
-        console.log(this.makes);
       }, error => {
         if (error instanceof NotFoundError) {
-            this.toastr.error('Model not found');
+            this.toastr.error('Models not found');
           }
         this.toastr.error('An unexpected error occured', 'Error');
       });
 
-      this.featuresService.getFeatures()
+      this.vehicleService.getFeatures()
       .subscribe(
         response => {
-        this.features = response.json();
-        console.log(this.features);
+        this.features = response;
       }, error => {
         if (error instanceof NotFoundError) {
-            this.toastr.error('Features not found');
+            this.toastr.error('Feaures not found');
           }
         this.toastr.error('An unexpected error occured', 'Error');
       });
@@ -51,16 +48,12 @@ export class VehicleFormComponent implements OnInit {
 
 
   }
-  onChange(deviceValue) {
-    console.log(deviceValue);
-    this.makesService.getModelsFromMake(deviceValue)
-      .subscribe(response => {
-        this.models = response.json();
-      }, (error: Response) => {
-        if (error instanceof NotFoundError) {
-          this.toastr.error('Model not found');
-        }
-        this.toastr.error('An unexpected error occured');
-      });
+
+
+  OnMakeChange() {
+    console.log('Vehicle: ', this.vehicle);
+    const selectedMake = this.makes.find(m => m.id == this.vehicle.make);
+    this.models = selectedMake ? selectedMake.carModels : [];
+    console.log('Car Models ',this.models);
   }
 }
